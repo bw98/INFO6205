@@ -81,7 +81,17 @@ public class UF_HWQUPC implements UF {
     public int find(int p) {
         validate(p);
         int root = p;
+
         // TO BE IMPLEMENTED
+        if (pathCompression) {
+            doPathCompression(root);
+            root = getParent(root);
+        } else {
+            while (getParent(root) != root) {
+                root = getParent(root);
+            }
+        }
+
         return root;
     }
 
@@ -110,6 +120,7 @@ public class UF_HWQUPC implements UF {
      */
     public void union(int p, int q) {
         // CONSIDER can we avoid doing find again?
+        // TODO(WeifengLai): Do Complete path compression to only height 1, then directly use parent[] to compare
         mergeComponents(find(p), find(q));
         count--;
     }
@@ -169,6 +180,13 @@ public class UF_HWQUPC implements UF {
 
     private void mergeComponents(int i, int j) {
         // TO BE IMPLEMENTED make shorter root point to taller one
+        if (height[i] >= height[j]) {
+            updateParent(j, i);
+            updateHeight(i, j);
+        } else if (height[i] < height[j]) {
+            updateParent(i, j);
+            updateHeight(j, i);
+        }
     }
 
     /**
@@ -176,5 +194,13 @@ public class UF_HWQUPC implements UF {
      */
     private void doPathCompression(int i) {
         // TO BE IMPLEMENTED update parent to value of grandparent
+        while (getParent(i) != i) {
+            updateParent(i, getParent(getParent(i)));
+            i = getParent(i);
+        }
+    }
+
+    public boolean isAllConnected() {
+        return components() == 1;
     }
 }
