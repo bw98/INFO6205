@@ -7,7 +7,7 @@ public class UF_HWQUPC_Client_Test {
     public static void main(String[] args) {
         // System.out.println("[UF_HWQUPC_Client_Test main()] Assignment 3, Part 2, UF Client");
 
-        int[] ns = {1000000, 10000, 1000, 100, 10, 1};
+        int[] ns = {1000, 500, 100, 30, 10, 5};
 
         for (int n : ns) {
             int links = count(n);
@@ -34,8 +34,9 @@ public class UF_HWQUPC_Client_Test {
 
             if (!uf.connected(p, q)) {
                 uf.union(p, q);
-                linkNum++;
             }
+
+            linkNum++;
         }
 
         return linkNum;
