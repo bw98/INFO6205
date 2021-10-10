@@ -80,19 +80,13 @@ public class UF_HWQUPC implements UF {
      */
     public int find(int p) {
         validate(p);
-        int root = p;
-
         // TO BE IMPLEMENTED
-        if (pathCompression) {
-            doPathCompression(root);
-            root = getParent(root);
-        } else {
-            while (getParent(root) != root) {
-                root = getParent(root);
-            }
+        while (getParent(p) != p) {
+            if (pathCompression) doPathCompression(p);
+            p = getParent(p);
         }
 
-        return root;
+        return p;
     }
 
     /**
@@ -194,10 +188,7 @@ public class UF_HWQUPC implements UF {
      */
     private void doPathCompression(int i) {
         // TO BE IMPLEMENTED update parent to value of grandparent
-        while (getParent(i) != i) {
-            updateParent(i, getParent(getParent(i)));
-            i = getParent(i);
-        }
+        updateParent(i, getParent(getParent(i)));
     }
 
     public boolean isAllConnected() {

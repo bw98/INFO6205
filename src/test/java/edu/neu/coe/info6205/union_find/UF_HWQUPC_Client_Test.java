@@ -7,7 +7,7 @@ public class UF_HWQUPC_Client_Test {
     public static void main(String[] args) {
         // System.out.println("[UF_HWQUPC_Client_Test main()] Assignment 3, Part 2, UF Client");
 
-        int[] ns = {1000, 500, 100, 30, 10, 5};
+        int[] ns = {100, 1000, 10000, 100000, 1000000};
 
         for (int n : ns) {
             int links = count(n);
